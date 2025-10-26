@@ -46,5 +46,23 @@ const prevBtn = document.getElementById("prev-btn");
 if (nextBtn) nextBtn.addEventListener("click", nextCard);
 if (prevBtn) prevBtn.addEventListener("click", prevCard);
 
+function addCardToArray(term, definition) {
+    flashcards.push({ term: term, definition: definition });
+}
+
+const addBtn = document.getElementById("add-card-btn");
+    if (addBtn) {
+        addBtn.addEventListener("click", function() {
+            const termInput = document.getElementById("new-term");
+            const definitionInput = document.getElementById("new-definition");
+            if (!termInput || !definitionInput) return;
+            const term = termInput.value.trim();
+            const definition = definitionInput.value.trim();
+            addCardToArray(term, definition);
+            termInput.value = "";
+            definitionInput.value = "";
+        });
+    }
 // This line will display the card when the page is refreshed
 window.onload = displayCard;
+
