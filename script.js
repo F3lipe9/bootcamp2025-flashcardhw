@@ -12,10 +12,21 @@ let showingTerm = true;
 
 // Start with this function to simply display the card
 function displayCard() {
-
+    const cardElement = document.getElementById("flashcard");
+    const currentCard = flashcards[currentIndex];
+    if (showingTerm) {
+        cardElement.innerText = currentCard.term;
+    } else {
+        cardElement.innerText = currentCard.definition;
+    }
 }
 
 // The rest of the code you will write is apart of event listeners
+const cardElement = document.getElementById("flashcard");
+cardElement.addEventListener("click", function() {
+    showingTerm = !showingTerm;
+    displayCard();
+});
 
 // This line will display the card when the page is refreshed
 window.onload = displayCard;
