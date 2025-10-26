@@ -76,3 +76,7 @@ button:hover {
 .add-card-form button {
     padding: 8px 20px;
 }
+
+.switch-deck {
+    margin: 1rem;
+}
