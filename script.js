@@ -28,5 +28,23 @@ cardElement.addEventListener("click", function() {
     displayCard();
 });
 
+function nextCard() {
+    currentIndex = (currentIndex + 1) % flashcards.length;
+    showingTerm = true;
+    displayCard();
+}
+
+function prevCard() {
+    currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+    showingTerm = true;
+    displayCard();
+}
+
+// Hook up the prev/next buttons safely
+const nextBtn = document.getElementById("next-btn");
+const prevBtn = document.getElementById("prev-btn");
+if (nextBtn) nextBtn.addEventListener("click", nextCard);
+if (prevBtn) prevBtn.addEventListener("click", prevCard);
+
 // This line will display the card when the page is refreshed
 window.onload = displayCard;
