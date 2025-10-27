@@ -20,12 +20,17 @@ let showingTerm = true;
 
 // Start with this function to simply display the card
 function displayCard() {
-    const cardElement = document.getElementById("flashcard");
-    const currentCard = decks[deckIndex][currentIndex];
+    const cardContent = document.getElementById("card-content");
+    const deck = decks[deckIndex];
+    const currentCard = deck[currentIndex];
+    if (!currentCard) {
+        cardContent.innerText = "";
+        //return;
+    }
     if (showingTerm) {
-        cardElement.innerText = currentCard.term;
+        cardContent.innerText = currentCard.term;
     } else {
-        cardElement.innerText = currentCard.definition;
+        cardContent.innerText = currentCard.definition;
     }
 }
 
@@ -37,13 +42,21 @@ cardElement.addEventListener("click", function () {
 });
 
 function nextCard() {
-    currentIndex = (currentIndex + 1) % decks[deckIndex].length;
+    if ((currentIndex + 1) > decks[deckIndex].length - 1){
+        currentIndex = 0;
+    } else{
+        currentIndex += 1;
+    }
     showingTerm = true;
     displayCard();
 }
 
 function prevCard() {
-    currentIndex = (currentIndex - 1 + decks[deckIndex].length) % decks[deckIndex].length;
+    if ((currentIndex - 1) === -1){
+        currentIndex = decks[deckIndex].length - 1;
+    } else{
+        currentIndex -= 1;
+    }
     showingTerm = true;
     displayCard();
 }
@@ -65,6 +78,7 @@ addBtn.addEventListener("click", function () {
     if (!termInput || !definitionInput) return;
     const term = termInput.value.trim();
     const definition = definitionInput.value.trim();
+    if (term === definition) return;
     addCardToArray(term, definition);
     termInput.value = "";
     definitionInput.value = "";
@@ -72,7 +86,11 @@ addBtn.addEventListener("click", function () {
 
 
 function switchDeck() {
-    deckIndex = (deckIndex + 1) % decks.length;
+    if ((deckIndex + 1) > decks.length - 1){
+        deckIndex = 0;
+    } else{
+        deckIndex += 1;
+    }
     currentIndex = 0;
     showingTerm = true;
     displayCard();
@@ -80,6 +98,15 @@ function switchDeck() {
 
 const switchDeckBtn = document.getElementById("switch-deck-btn");
 switchDeckBtn.addEventListener("click", switchDeck);
+
+function newDeck() {
+    const created = [];
+    decks.push(created);
+    console.log(decks);
+}
+
+const newDeckBtn = document.getElementById("make-new-deck");
+newDeckBtn.addEventListener("click", newDeck);
 
 // This line will display the card when the page is refreshed
 window.onload = displayCard;
