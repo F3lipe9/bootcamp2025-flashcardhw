@@ -25,7 +25,7 @@ function displayCard() {
     const currentCard = deck[currentIndex];
     if (!currentCard) {
         cardContent.innerText = "";
-        //return;
+        return;
     }
     if (showingTerm) {
         cardContent.innerText = currentCard.term;
@@ -102,7 +102,6 @@ switchDeckBtn.addEventListener("click", switchDeck);
 function newDeck() {
     const created = [];
     decks.push(created);
-    console.log(decks);
 }
 
 const newDeckBtn = document.getElementById("make-new-deck");
